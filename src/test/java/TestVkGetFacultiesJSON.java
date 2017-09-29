@@ -46,13 +46,19 @@ public class TestVkGetFacultiesJSON {
     }
 
     @Test
-    public void validateSpellerAnswerAsAnObject() {
+    public void validateGetFacultiesAnswerAsAnObject() {
         List<VkGetFacultiesAnswer> answers = VkGetFacultiesApi.getVkGetUniversitiesAnswers(
                 VkGetFacultiesApi.with()
                         .universityId(2)
-                        .offset(offset)
+                        .offset(0)
                         .count(count)
                         .callApi());
+
+        assertThat(answers.size(), lessThanOrEqualTo(Integer.parseInt(String.valueOf(count))));
+        assertThat(answers.get(0).id, equalTo(20));
+        assertThat(answers.get(0).title, equalTo("Факультет биоинженерии и биоинформатики"));
+        assertThat(answers.get(2).id, equalTo(22));
+        assertThat(answers.get(2).title, equalTo("Высшая школа бизнеса"));
     }
 
 
