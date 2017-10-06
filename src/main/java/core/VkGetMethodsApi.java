@@ -3,6 +3,7 @@ package core;
 import java.lang.reflect.Type;
 import java.util.*;
 
+import beans.Item;
 import beans.VkGetFacultiesAnswer;
 import beans.VkGetSchoolsAnswer;
 import com.google.gson.Gson;
@@ -131,15 +132,15 @@ public class VkGetMethodsApi {
 
     }
 
-    public static List<VkGetSchoolsAnswer> getVkGetSchoolAnswers(Response response) {
+    public static List<Item> getVkGetSchoolAnswers(Response response) {
 
         String responseStr = response.print();
         int beginIndex = responseStr.indexOf("{", 2);
         int endIndex = responseStr.lastIndexOf("]");
         String jsonStr = "[" + responseStr.substring(beginIndex, endIndex) + "]";
-        Type listType = new TypeToken<List<VkGetFacultiesAnswer>>() {
+        Type listType = new TypeToken<List<Item>>() {
         }.getType();
-        List<VkGetSchoolsAnswer> listS = new Gson().fromJson(jsonStr, listType);
+        List<Item> listS = new Gson().fromJson(jsonStr, listType);
         return listS;
 
     }

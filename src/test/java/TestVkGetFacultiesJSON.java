@@ -1,8 +1,9 @@
+import beans.Item;
 import beans.VkGetFacultiesAnswer;
 import beans.VkGetSchoolsAnswer;
 import core.VkGetMethodsApi;
 import core.VkGetFacultiesConstance;
-import core.VkGetSchoolConstant;
+import enums.FacultiesOfBioengineering;
 import io.restassured.RestAssured;
 import org.junit.Test;
 import java.util.*;
@@ -11,6 +12,9 @@ import static core.VkGetFacultiesConstance.*;
 import static core.VkGetSchoolConstant.*;
 import static core.VkGetSchoolConstant.PARAM_COUNT;
 import static core.VkGetSchoolConstant.count;
+import static enums.BusinessSchool.BUSINESS_SCHOOL;
+import static enums.FacultiesOfBioengineering.FACULTY_OF_BIOENGINEERING;
+import static enums.School57.SCHOOL_57;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
@@ -70,15 +74,15 @@ public class TestVkGetFacultiesJSON {
                         .count(count)
                         .callApi());
         assertThat(answers.size(), lessThanOrEqualTo(Integer.parseInt(String.valueOf(count))));
-        assertThat(answers.get(0).id, equalTo(20));
-        assertThat(answers.get(0).title, equalTo("Факультет биоинженерии и биоинформатики"));
-        assertThat(answers.get(2).id, equalTo(22));
-        assertThat(answers.get(2).title, equalTo("Высшая школа бизнеса"));
+        assertThat(answers.get(FACULTY_OF_BIOENGINEERING.getNumber()).id, equalTo(FACULTY_OF_BIOENGINEERING.getId()));
+        assertThat(answers.get(FACULTY_OF_BIOENGINEERING.getNumber()).title, equalTo(FACULTY_OF_BIOENGINEERING.getName()));
+        assertThat(answers.get(BUSINESS_SCHOOL.getNumber()).id, equalTo(BUSINESS_SCHOOL.getId()));
+        assertThat(answers.get(BUSINESS_SCHOOL.getNumber()).title, equalTo(BUSINESS_SCHOOL.getName()));
     }
 
     @Test
     public void validateGetSchoolsAnswerAsAnObject() {
-        List<VkGetSchoolsAnswer> answers = VkGetMethodsApi.getVkGetSchoolAnswers(
+        List<Item> answers = VkGetMethodsApi.getVkGetSchoolAnswers(
                 VkGetMethodsApi.withForSchool()
                         .q(57)
                         .cityId(1)
@@ -86,6 +90,8 @@ public class TestVkGetFacultiesJSON {
                         .count(count)
                         .callApi());
         assertThat(answers.size(), lessThanOrEqualTo(Integer.parseInt(String.valueOf(count))));
+        assertThat(answers.get(SCHOOL_57.getNumber()).id, equalTo(SCHOOL_57.getId()));
+        assertThat(answers.get(SCHOOL_57.getNumber()).title, equalTo(SCHOOL_57.getName()));
     }
 
 
